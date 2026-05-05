@@ -900,19 +900,20 @@
     </div>
     <div class="booking-right fade-in">
       <form id="booking-form" onsubmit="submitForm(event)">
+        <input type="hidden" name="_subject" value="New Reservation Enquiry - Kayaal Beauty Lounge">
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Your Name</label>
-            <input type="text" class="form-input" placeholder="Full name" required>
+            <input type="text" name="name" class="form-input" placeholder="Full name" required>
           </div>
           <div class="form-group">
             <label class="form-label">Phone Number</label>
-            <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+            <input type="tel" name="phone" class="form-input" placeholder="+91 XXXXX XXXXX" required>
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">Service Required</label>
-          <select class="form-select form-input" required>
+          <select name="service" class="form-select form-input" required>
             <option value="" disabled selected>Select a service</option>
             <option>Hair Care</option>
             <option>Skin Care</option>
@@ -926,16 +927,16 @@
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Preferred Date</label>
-            <input type="date" class="form-input" required>
+            <input type="date" name="date" class="form-input" required>
           </div>
           <div class="form-group">
             <label class="form-label">Preferred Time</label>
-            <input type="time" class="form-input" required>
+            <input type="time" name="time" class="form-input" required>
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">Additional Notes</label>
-          <textarea class="form-textarea" placeholder="Any special requests or details..."></textarea>
+          <textarea name="notes" class="form-textarea" placeholder="Any special requests or details..."></textarea>
         </div>
         <button type="submit" class="btn-submit">Send Enquiry</button>
       </form>
@@ -1093,8 +1094,31 @@
   // Form submit
   function submitForm(e) {
     e.preventDefault();
-    document.getElementById('booking-form').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
+    const form = e.target;
+    const btn = form.querySelector('.btn-submit');
+    const originalText = btn.innerText;
+    
+    btn.innerText = 'Sending...';
+    btn.disabled = true;
+
+    fetch("https://formsubmit.co/ajax/kayaalbeautylounge@gmail.com", {
+      method: "POST",
+      headers: { 
+          'Accept': 'application/json'
+      },
+      body: new FormData(form)
+    })
+    .then(response => response.json())
+    .then(data => {
+        form.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Sorry, there was an issue sending your request. Please try contacting us via WhatsApp or Phone.");
+        btn.innerText = originalText;
+        btn.disabled = false;
+    });
   }
 </script>
 
