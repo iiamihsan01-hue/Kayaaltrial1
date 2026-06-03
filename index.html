@@ -346,18 +346,22 @@
     display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 380px; gap: 12px;
     max-width: 1200px; margin: 0 auto 48px;
   }
-  .gallery-grid .img-placeholder {
+  .gallery-grid .gallery-item {
+    overflow: hidden;
+    position: relative;
     background: #e2e2e2;
-    display: flex; align-items: center; justify-content: center;
-    padding: 32px;
-    font-family: var(--sans); font-size: 11px; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--mid);
-    text-align: center;
   }
-  .gallery-grid .img-placeholder:nth-child(1) {
-    align-items: flex-end; justify-content: flex-start; text-align: left;
+  .gallery-grid .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.6s ease;
   }
-  .gallery-grid .img-placeholder:nth-child(3n+1) {
+  .gallery-grid .gallery-item:hover img {
+    transform: scale(1.04);
+  }
+  .gallery-grid .gallery-item:nth-child(3n+1) {
     grid-row: span 2;
   }
   .gallery-insta {
@@ -651,9 +655,9 @@
     .about-grid, .booking-grid, .contact-grid, .beta-grid { grid-template-columns: 1fr; gap: 48px; }
     .services-grid { grid-template-columns: 1fr; }
     .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 300px; }
-    .gallery-grid .img-placeholder:nth-child(3n+1) { grid-row: auto; }
-    .gallery-grid .img-placeholder:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-    .gallery-grid .img-placeholder:nth-child(6) { grid-column: span 2; }
+    .gallery-grid .gallery-item:nth-child(3n+1) { grid-row: auto; }
+    .gallery-grid .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-grid .gallery-item:nth-child(6) { grid-column: span 2; }
     .services-header { flex-direction: column; align-items: flex-start; gap: 16px; }
     .services-note { text-align: left; max-width: 100%; }
     .footer-top { flex-direction: column; gap: 40px; }
@@ -706,7 +710,7 @@
     </div>
   </div>
   <div class="hero-image-strip">
-    <img src="IMG-20260531-WA0009.jpg" alt="Kayaal Beauty Lounge – Kodakara's Favourite Family Beauty Clinic" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+    <img src="homeimg1.jpg" alt="Kayaal Beauty Lounge – Kodakara's Favourite Family Beauty Clinic" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
     <span class="hero-scroll">Scroll</span>
   </div>
 </section>
@@ -857,15 +861,15 @@
     <h2 class="section-title">Gallery</h2>
   </div>
   <div class="gallery-grid">
-    <div class="img-placeholder fade-in">Photo 1 - Before/After Hair Transformation</div>
-    <div class="img-placeholder fade-in">Photo 2 - Bridal Look</div>
-    <div class="img-placeholder fade-in">Photo 3 - Nail Art Detail</div>
-    <div class="img-placeholder fade-in">Photo 4 - Skin Glow Treatment</div>
-    <div class="img-placeholder fade-in">Photo 5 - Salon Interior</div>
-    <div class="img-placeholder fade-in">Photo 6 - Hair Colour Result</div>
-    <div class="img-placeholder fade-in">Photo 7 - Bridal Makeup Close-up</div>
-    <div class="img-placeholder fade-in">Photo 8 - Threading / Brow Shaping</div>
-    <div class="img-placeholder fade-in">Photo 9 - Spa Treatment</div>
+    <div class="gallery-item fade-in"><img src="media/IMG-20260531-WA0040 (2).jpg" alt="Bridal pink saree look by Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="media/IMG-20260531-WA0012 (2).jpg" alt="Your hair deserves an Expert - Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="media/IMG-20260531-WA0009 (2).jpg" alt="Kayaal The Luxurious Beauty Lounge"></div>
+    <div class="gallery-item fade-in"><img src="media/IMG-20260531-WA0024 (2).jpg" alt="Black lehenga salon look by Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="media/IMG-20260531-WA0011 (2).jpg" alt="Skin glow treatment at Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="media/IMG-20260531-WA0042 (2).jpg" alt="Special Bridal Offer at Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="media/IMG-20260531-WA0025 (2).jpg" alt="Embroidered lehenga look by Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="media/IMG-20260531-WA0027 (2).jpg" alt="Bridal saree styling at Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="media/IMG-20260531-WA0028 (2).jpg" alt="Saree drape and makeup by Kayaal"></div>
   </div>
   <div class="gallery-insta fade-in">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
