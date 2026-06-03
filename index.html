@@ -665,7 +665,9 @@
     .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
     .form-row { grid-template-columns: 1fr; }
     .hero-top { padding-left: 24px; padding-right: 24px; }
-    .hero-image-strip { height: 280px; margin-top: 40px; }
+    .hero-image-strip { height: 300px; margin-top: 40px; }
+    .hero-img-desktop { display: none !important; }
+    .hero-img-mobile { display: block !important; }
   }
 </style>
 </head>
@@ -710,7 +712,8 @@
     </div>
   </div>
   <div class="hero-image-strip">
-    <img src="homeimg1.jpg" alt="Kayaal Beauty Lounge – Kodakara's Favourite Family Beauty Clinic" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+    <img class="hero-img-desktop" src="homeimg1.jpg" alt="Kayaal Beauty Lounge – Kodakara's Favourite Family Beauty Clinic" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+    <img class="hero-img-mobile" src="homeimg2.jpg" alt="Kayaal Beauty Lounge – Kodakara's Favourite Family Beauty Clinic" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:none;">
     <span class="hero-scroll">Scroll</span>
   </div>
 </section>
