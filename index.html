@@ -1108,11 +1108,8 @@
     btn.innerText = 'Sending...';
     btn.disabled = true;
 
-    fetch("https://formsubmit.co/ajax/kayaalbeautylounge@gmail.com", {
+    fetch("send_mail.php", {
       method: "POST",
-      headers: { 
-          'Accept': 'application/json'
-      },
       body: new FormData(form)
     })
     .then(response => response.json())
