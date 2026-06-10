@@ -364,6 +364,9 @@
   .gallery-grid .gallery-item:nth-child(3n+1) {
     grid-row: span 2;
   }
+  .gallery-grid .gallery-item.mobile-only {
+    display: none;
+  }
   .gallery-insta {
     text-align: center; font-size: 13px; letter-spacing: 0.1em;
     display: flex; align-items: center; justify-content: center; gap: 10px;
@@ -658,6 +661,18 @@
     .gallery-grid .gallery-item:nth-child(3n+1) { grid-row: auto; }
     .gallery-grid .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
     .gallery-grid .gallery-item:nth-child(6) { grid-column: span 2; }
+    .gallery-grid .gallery-item.mobile-only { display: block; }
+    /* Mobile-only: swap items 3 and 9 */
+    .gallery-grid .gallery-item:nth-child(1) { order: 1; }
+    .gallery-grid .gallery-item:nth-child(2) { order: 2; }
+    .gallery-grid .gallery-item:nth-child(3) { order: 9; }
+    .gallery-grid .gallery-item:nth-child(4) { order: 4; }
+    .gallery-grid .gallery-item:nth-child(5) { order: 5; }
+    .gallery-grid .gallery-item:nth-child(6) { order: 6; }
+    .gallery-grid .gallery-item:nth-child(7) { order: 7; }
+    .gallery-grid .gallery-item:nth-child(8) { order: 8; }
+    .gallery-grid .gallery-item:nth-child(9) { order: 3; }
+    .gallery-grid .gallery-item:nth-child(10) { order: 10; }
     .services-header { flex-direction: column; align-items: flex-start; gap: 16px; }
     .services-note { text-align: left; max-width: 100%; }
     .footer-top { flex-direction: column; gap: 40px; }
@@ -864,15 +879,16 @@
     <h2 class="section-title">Gallery</h2>
   </div>
   <div class="gallery-grid">
-    <div class="gallery-item fade-in"><img src="Media/IMG-20260531-WA0040 (2).jpg" alt="Bridal pink saree look by Kayaal"></div>
-    <div class="gallery-item fade-in"><img src="Media/IMG-20260531-WA0026 (2).jpg" alt="Embroidered black lehenga look by Kayaal"></div>
-    <div class="gallery-item fade-in"><img src="Media/IMG-20260531-WA0029 (2).jpg" alt="Black lehenga elegance at Kayaal"></div>
-    <div class="gallery-item fade-in"><img src="Media/IMG-20260531-WA0024 (2).jpg" alt="Black lehenga salon look by Kayaal"></div>
-    <div class="gallery-item fade-in"><img src="Media/IMG-20260531-WA0030 (2).jpg" alt="Dupatta drape styling by Kayaal"></div>
-    <div class="gallery-item fade-in"><img src="Media/IMG-20260531-WA0019 (2).jpg" alt="Sheer sleeve black lehenga at Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="Media/Bridal1.jpg" alt="Bridal look by Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="Media/wedding1.jpg" alt="Wedding garland walk styled by Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="Media/bridal2.jpg" alt="Kerala bridal couple styled by Kayaal" style="object-position:center center;"></div>
     <div class="gallery-item fade-in"><img src="Media/IMG-20260531-WA0045 (2).jpg" alt="Wedding couple styled by Kayaal"></div>
-    <div class="gallery-item fade-in"><img src="Media/IMG-20260531-WA0020 (2).jpg" alt="Sequin black lehenga styling at Kayaal"></div>
-    <div class="gallery-item fade-in"><img src="Media/IMG-20260531-WA0021 (2).jpg" alt="Evening glam lehenga look by Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="Media/wedding2.jpg" alt="Wedding couple entrance by Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="Media/IMG_0669.jpeg" alt="Styled look by Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="Media/wedding3.jpg" alt="Wedding stage couple styled by Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="Media/IMG-20260531-WA0040 (2).jpg" alt="Bridal pink saree look by Kayaal"></div>
+    <div class="gallery-item fade-in"><img src="Media/wedding4.jpg" alt="Wedding rose petal shower at Kayaal"></div>
+    <div class="gallery-item fade-in mobile-only"><img src="Media/bridal3.jpg" alt="Bridal styling by Kayaal"></div>
   </div>
   <div class="gallery-insta fade-in">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
@@ -1098,31 +1114,51 @@
   }, { threshold: 0.12 });
   faders.forEach(el => observer.observe(el));
 
+  // ── Supabase config ──────────────────────────────────────────────────────
+  // TODO: Replace these two values after you create your Supabase project
+  // Dashboard → Settings → API → Project URL & anon/public key
+  const SUPABASE_URL      = "https://YOUR_PROJECT_ID.supabase.co";   // ← paste here
+  const SUPABASE_ANON_KEY = "YOUR_ANON_PUBLIC_KEY";                  // ← paste here
+  // ─────────────────────────────────────────────────────────────────────────
+
   // Form submit
-  function submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
     const form = e.target;
-    const btn = form.querySelector('.btn-submit');
+    const btn  = form.querySelector('.btn-submit');
     const originalText = btn.innerText;
-    
-    btn.innerText = 'Sending...';
-    btn.disabled = true;
 
-    fetch("send_mail.php", {
-      method: "POST",
-      body: new FormData(form)
-    })
-    .then(response => response.json())
-    .then(data => {
-        form.style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-    })
-    .catch(error => {
-        console.error(error);
-        alert("Sorry, there was an issue sending your request. Please try contacting us via WhatsApp or Phone.");
-        btn.innerText = originalText;
-        btn.disabled = false;
-    });
+    btn.innerText = 'Sending…';
+    btn.disabled  = true;
+
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/functions/v1/send-booking`,
+        {
+          method: "POST",
+          headers: {
+            "apikey":        SUPABASE_ANON_KEY,
+            "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+          body: new FormData(form),
+        }
+      );
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error ?? `HTTP ${res.status}`);
+      }
+
+      // Success ✅
+      form.style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+
+    } catch (err) {
+      console.error("Booking submission error:", err);
+      alert("Sorry, there was an issue sending your request. Please contact us via WhatsApp or Phone.");
+      btn.innerText = originalText;
+      btn.disabled  = false;
+    }
   }
 </script>
 
